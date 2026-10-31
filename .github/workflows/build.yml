@@ -26,8 +26,13 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Build Android Platform and APK
+    - name: Create Clean Cordova Project and Build
       run: |
+        cordova create myapp com.turuq.iraqna ToroqIraqna
+        cd myapp
+        rm -rf www
+        cp -r ../www .
+        cp ../config.xml .
         cordova platform add android
         cordova build android --release
 
@@ -35,4 +40,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-release-unsigned
-        path: platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+        path: myapp/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
