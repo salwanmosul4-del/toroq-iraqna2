@@ -8,6 +8,6 @@
     <allow-intent href="https://*/*" />
     <preference name="Orientation" value="portrait" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="BackgroundColor" value="0xffFBF8F1" />
+    <preference name="BackgroundColor" value="#FFFBF8F1" />
     <preference name="android-minSdkVersion" value="24" />
 </widget>
