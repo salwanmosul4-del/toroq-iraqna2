@@ -32,7 +32,9 @@ jobs:
         cd myapp
         rm -rf www
         cp -r ../www .
-        cp ../config.xml .
+        if [ -f ../config.xml ]; then
+          cp ../config.xml .
+        fi
         cordova platform add android
         cordova build android --release
 
