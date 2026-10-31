@@ -45,11 +45,13 @@ jobs:
         cordova platform add android
         cordova plugin add cordova-plugin-geolocation
         cordova build android --debug
+        
+        # إنشاء مجلد جديد ونقل ملف الـ APK إليه لضمان رفعه بسهولة
+        mkdir -p ../apk-output
+        find platforms/android/app/build/outputs/apk/debug/ -name "*.apk" -exec cp {} ../apk-output/ \;
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: |
-          myapp/platforms/android/app/build/outputs/apk/debug/*.apk
-          myapp/platforms/android/app/build/outputs/apk/**/*.apk
+        path: apk-output/*.apk
