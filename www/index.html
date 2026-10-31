@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- تم تعديل سياسة أمان المحتوى للسماح بالاتصال بخوادم وخدمات Firebase عبر الـ CDN -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com https://*.firebaseio.com https://*.googleapis.com https://www.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content: https:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>Toroq Iraqna</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Toroq Iraqna</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+
+        <!-- كود ربط وتهيئة Firebase المباشر -->
+        <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-app.js";
+          import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.x.x/firebase-analytics.js";
+
+          // إعدادات مشروعك في Firebase
+          const firebaseConfig = {
+            apiKey: "AIzaSyD9vTukvnikZWaZ_xpKMQzNEYuuOpEceHY",
+            authDomain: "toroq-iraqna2.firebaseapp.com",
+            projectId: "toroq-iraqna2",
+            storageBucket: "toroq-iraqna2.appspot.com",
+            messagingSenderId: "664767015598",
+            appId: "1:664767015598:web:f0h0d475f492129df26f2f"
+          };
+
+          // تهيئة فايربيس
+          const app = initializeApp(firebaseConfig);
+          const analytics = getAnalytics(app);
+          console.log("Firebase initialized successfully!");
+        </script>
+    </body>
+</html>
