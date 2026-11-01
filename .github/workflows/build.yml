@@ -16,6 +16,17 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
+    - name: Check app files
+      run: |
+        echo "--- files in www ---"
+        find www -type f | head -50
+        echo "--- first lines of www/index.html ---"
+        head -5 www/index.html
+        grep -q "طرق عراقنا" www/index.html || { echo "ERROR: www/index.html is NOT the Turuq app (it is the default Cordova page). Upload the new index.html into the www folder."; exit 1; }
+        grep -q "maplibre" www/index.html || { echo "ERROR: www/index.html is an old version without the map."; exit 1; }
+        test -f www/img/robot_body.png || { echo "ERROR: www/img/robot_body.png is missing."; exit 1; }
+        test -f config.xml || { echo "ERROR: config.xml is missing from the repository root."; exit 1; }
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -45,13 +56,13 @@ jobs:
         rm -rf www
         cp -r ../www .
         cp -f ../config.xml .
+        grep -q "طرق عراقنا" www/index.html && echo "app files copied ok"
         cordova platform add android
         cordova plugin add cordova-plugin-geolocation
         cordova build android --debug
 
     - name: Find the APK
       run: |
-        echo "APK files found:"
         find . -name "*.apk" -not -path "*/node_modules/*"
         mkdir -p out
         find . -name "*.apk" -not -path "*/node_modules/*" -not -path "./out/*" -exec cp {} out/app-debug.apk \; -quit
