@@ -49,15 +49,24 @@ jobs:
         cordova plugin add cordova-plugin-geolocation
         cordova build android --debug
 
+    - name: Find the APK
+      run: |
+        echo "APK files found:"
+        find . -name "*.apk" -not -path "*/node_modules/*"
+        mkdir -p out
+        find . -name "*.apk" -not -path "*/node_modules/*" -not -path "./out/*" -exec cp {} out/app-debug.apk \; -quit
+        ls -la out
+
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: myapp/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+        path: out/app-debug.apk
+        if-no-files-found: error
 
     - name: Publish APK to Releases
       uses: softprops/action-gh-release@v2
       with:
         tag_name: build-${{ github.run_number }}
         name: Turuq build ${{ github.run_number }}
-        files: myapp/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+        files: out/app-debug.apk
